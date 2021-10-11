@@ -16,9 +16,9 @@ namespace FrontEnd
 
         public static void InsertFile(string name, string path)
         {
-            if (FileList.ContainsValue(path))
+            if (FileList.ContainsValue(path) || FileList.ContainsKey(name))
             {
-                MessageBox.Show($"El archivo {name} ya se encontraba en la coleccion.", "Archivo insertado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"El archivo {name} ya se encuentra en la coleccion.", "Archivo insertado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             FileList.Add(name, path);
@@ -35,7 +35,7 @@ namespace FrontEnd
             }
             foreach (string file in files)
             {
-                if (FileList.ContainsValue(file))
+                if (FileList.ContainsValue(file) || FileList.ContainsKey(file.Split('\\').Last()))
                 {
                     ignoredFiles.Add(file.Split('\\').Last());
                     continue;
