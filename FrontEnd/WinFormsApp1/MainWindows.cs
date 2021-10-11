@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
-using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace FrontEnd
 {
@@ -16,11 +15,27 @@ namespace FrontEnd
 
         private void TextBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            using(CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            if (checkBox1.Checked)
             {
-                dialog.InitialDirectory = "C:\\Users";
-                dialog.IsFolderPicker = checkBox1.Checked;
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                using FolderBrowserDialog dialog = new();
+                dialog.ShowNewFolderButton = false;
+                dialog.RootFolder = Environment.SpecialFolder.MyComputer;
+                var result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    textBox1.Text = dialog.SelectedPath;
+                    SelectedFiles.CurrentFile = dialog.SelectedPath;
+                }
+            } else
+            {
+                using OpenFileDialog dialog = new();
+                dialog.Title = "Seleccione el archivo a encriptar";
+                dialog.InitialDirectory = "C:\\";
+                dialog.CheckPathExists = true;
+                dialog.CheckFileExists = true;
+                dialog.Multiselect = false;
+                var result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
                 {
                     textBox1.Text = dialog.FileName;
                     SelectedFiles.CurrentFile = dialog.FileName;
@@ -68,6 +83,11 @@ namespace FrontEnd
         {
             SelectedFiles.FileList.Clear();
             listBox1.Items.Clear();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(Directory.GetCurrentDirectory());
         }
     }
 }
