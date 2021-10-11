@@ -31,6 +31,10 @@
   <ItemGroup>
     <Content Include=".env" />
     <Content Include="cert.pem" />
+    <Content Include="dist\app.js" />
+    <Content Include="dist\controllers\index.js" />
+    <Content Include="dist\routes\index.js" />
+    <Content Include="dist\utils\Error.js" />
     <Content Include="key.pem" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
@@ -42,6 +46,10 @@
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="dist\" />
+    <Folder Include="dist\controllers\" />
+    <Folder Include="dist\routes\" />
+    <Folder Include="dist\utils\" />
     <Folder Include="public\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="src\" />
