@@ -65,6 +65,7 @@ namespace FrontEnd
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar1.TabIndex = 1;
             this.progressBar1.Value = 50;
+            this.progressBar1.Visible = false;
             // 
             // label1
             // 
@@ -80,6 +81,7 @@ namespace FrontEnd
             this.label1.Size = new System.Drawing.Size(148, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "Subiendo archivos...";
+            this.label1.Visible = false;
             // 
             // textBox1
             // 

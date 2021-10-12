@@ -87,7 +87,34 @@ namespace FrontEnd
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(Directory.GetCurrentDirectory());
+           Encryption.EncryptFiles(this);
+        }
+
+        public void SetLoadingLabel(string text)
+        {
+            label1.Text = text;
+        }
+
+        public void SetLoadingValue(int value)
+        {
+            progressBar1.Value = value;
+        }
+
+        public void SetLoadingEnd(int value)
+        {
+            progressBar1.Maximum = value;
+        }
+
+        public void ShowLoading()
+        {
+            progressBar1.Visible = true;
+            label1.Visible = true;
+        }
+
+        public void HideLoading()
+        {
+            progressBar1.Visible = false;
+            label1.Visible = false;
         }
     }
 }
