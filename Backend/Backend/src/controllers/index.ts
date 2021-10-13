@@ -1,9 +1,36 @@
 import { Request, Response, NextFunction } from "express";
+import { RequestError } from "../utils/Error";
+import fs from "fs-extra";
 
 export const SayHello = (req: Request, res: Response, next: NextFunction) => {
     res.send("Hello world!");
 };
 
-export const ReceiveFile = (req: Request, res: Response, next: NextFunction) => {
-    res.sendStatus(501);
+export const ReceiveFile = async (req: Request, res: Response, next: NextFunction) => {
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
+    if (files == null) {
+        const reqErr = new RequestError("No se recibieron archivos.");
+        reqErr.statusCode = 400;
+        next(reqErr);
+        return;
+    }
+
+    try {
+        if (!fs.existsSync("receivedFiles")) {
+            fs.mkdirSync("receivedFiles");
+        }
+
+        const date = new Date().toISOString().replace(/:/g, "");
+
+        fs.mkdirSync(`receivedFiles/${date}`)
+
+        for (var i = 0; i < files.files.length; i++) {
+            fs.outputFileSync(`receivedFiles/${date}/${files.files[i].originalname}`, files.files[i].buffer);
+        }
+
+        res.sendStatus(200);
+    } catch (e) {
+        console.log(e);
+        next(e);
+    }
 };

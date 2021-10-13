@@ -11,6 +11,16 @@ namespace FrontEnd
         public MainWindow()
         {
             InitializeComponent();
+            textBox1.EnabledChanged += TextBox1_EnabledChanged;
+            Network.GetHello();
+        }
+
+        private void TextBox1_EnabledChanged(object sender, EventArgs e)
+        {
+            if (textBox1.Enabled)
+            {
+                HideLoading();
+            }
         }
 
         private void TextBox1_MouseClick(object sender, MouseEventArgs e)
@@ -87,7 +97,11 @@ namespace FrontEnd
 
         private void Button2_Click(object sender, EventArgs e)
         {
-           Encryption.EncryptFiles(this);
+            if (listBox1.Items.Count == 0)
+            {
+                return;
+            }
+            Encryption.EncryptFiles(this);
         }
 
         public void SetLoadingLabel(string text)
@@ -97,6 +111,11 @@ namespace FrontEnd
 
         public void SetLoadingValue(int value)
         {
+            if (value == -1)
+            {
+                progressBar1.Value = progressBar1.Maximum;
+                return;
+            }
             progressBar1.Value = value;
         }
 
@@ -115,6 +134,25 @@ namespace FrontEnd
         {
             progressBar1.Visible = false;
             label1.Visible = false;
+        }
+
+        public void ToggleControlEnabled()
+        {
+            textBox1.Enabled = !textBox1.Enabled;
+            button1.Enabled = !button1.Enabled;
+            button2.Enabled = !button2.Enabled;
+            button3.Enabled = !button3.Enabled;
+            button4.Enabled = !button4.Enabled;
+        }
+
+        public void ClearList()
+        {
+            listBox1.Items.Clear();
+        }
+
+        public void ClearTextBox()
+        {
+            textBox1.Clear();
         }
     }
 }

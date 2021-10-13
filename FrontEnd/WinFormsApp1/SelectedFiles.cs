@@ -56,5 +56,14 @@ namespace FrontEnd
                 MessageBox.Show($"Los archivos {string.Join(", ", ignoredFiles.ToArray())} ya estaban contenidos en la coleccion. Fueron ignorados.", "Archivos ignorados", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        public static void EmptyTemp()
+        {
+            var files = Directory.GetFiles($"{Directory.GetCurrentDirectory()}\\temp");
+            foreach (string file in files)
+            {
+                File.Delete(file);
+            }
+        }
     }
 }
