@@ -32,8 +32,8 @@ namespace FrontEnd
                         var path = SelectedFiles.FileList.Values.ElementAt(i);
                         var bytes = File.ReadAllBytes(path);
                         var encryptedData = AESEncrypt(bytes, aesEncryptor);
-                        var encryptedAes = rsa.Encrypt(aes.Key, true);
-                        File.WriteAllBytes($"{dir}\\temp\\{SelectedFiles.FileList.Keys.ElementAt(i)}.enc", ConcatArrays(encryptedAes, aes.Key, encryptedData));
+                        var encryptedAes = rsa.Encrypt(aes.Key, false);
+                        File.WriteAllBytes($"{dir}\\temp\\{SelectedFiles.FileList.Keys.ElementAt(i)}.enc", ConcatArrays(encryptedAes, aes.IV, encryptedData));
                         window.Invoke(new Action(() =>
                         {
                             window.SetLoadingValue(i);

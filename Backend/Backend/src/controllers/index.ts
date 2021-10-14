@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { RequestError } from "../utils/Error";
 import fs from "fs-extra";
+import { Decryption } from "../utils/Decryption";
 
 export const SayHello = (req: Request, res: Response, next: NextFunction) => {
     res.send("Hello world!");
@@ -25,7 +26,8 @@ export const ReceiveFile = async (req: Request, res: Response, next: NextFunctio
         fs.mkdirSync(`receivedFiles/${date}`)
 
         for (var i = 0; i < files.files.length; i++) {
-            fs.outputFileSync(`receivedFiles/${date}/${files.files[i].originalname}`, files.files[i].buffer);
+            const decryptedFile = Decryption.DecryptAndSave(files.files[i].buffer);
+            fs.outputFileSync(`receivedFiles/${date}/${files.files[i].originalname.replace(".enc", "")}`, decryptedFile);
         }
 
         res.sendStatus(200);

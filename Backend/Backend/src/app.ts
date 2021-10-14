@@ -60,10 +60,6 @@ app.use(function (err: RequestError, req: Request, res: Response, next: NextFunc
 
 app.set('port', process.env.PORT || 3000);
 
-/*app.listen(3000, () => {
-    console.log(fs.readFileSync(path.resolve(process.cwd(), 'key.pem')));
-})*/
-
 var server = https.createServer({
     key: fs.readFileSync(path.resolve(process.cwd(), 'key.pem')),
     cert: fs.readFileSync(path.resolve(process.cwd(), "cert.pem")),
